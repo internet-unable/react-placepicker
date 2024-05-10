@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useCallback } from 'react';
 
 import Places from './components/Places.jsx';
 import { AVAILABLE_PLACES } from './data.js';
@@ -48,7 +48,7 @@ function App() {
         }
     }
 
-    function handleRemovePlace() {
+    const handleRemovePlace = useCallback(() => {
         setPickedPlaces((prevPickedPlaces) =>
             prevPickedPlaces.filter((place) => place.id !== selectedPlace.current)
         );
@@ -57,7 +57,7 @@ function App() {
         const storedIds = JSON.parse(localStorage.getItem('selectedPlace')) || [];
         const storedIdsFitler = storedIds.filter(id => id !== selectedPlace.current);
         localStorage.setItem('selectedPlace', JSON.stringify([...storedIdsFitler]));
-    }
+    }, []);
 
     return (
         <>
