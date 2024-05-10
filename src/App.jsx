@@ -23,7 +23,6 @@ function App() {
         });
     }, []);
 
-
     function handleStartRemovePlace(id) {
         modal.current.open();
         selectedPlace.current = id;
@@ -55,9 +54,8 @@ function App() {
         modal.current.close();
 
         const storedIds = JSON.parse(localStorage.getItem('selectedPlace')) || [];
-        localStorage.setItem('selectedPlace', JSON.stringify([storedIds.filter(id => {
-            id !== selectedPlace.current;
-        })]));
+        const storedIdsFitler = storedIds.filter(id => id !== selectedPlace.current);
+        localStorage.setItem('selectedPlace', JSON.stringify([...storedIdsFitler]));
     }
 
     return (
